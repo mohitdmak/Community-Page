@@ -10,5 +10,26 @@
 		<li><a href="{% url 'askQ' %}" class="button">A s k</a></li>
 	</ul>
 </section>
+<hr style="border: 2px;border-style: inset;border-color: black;">
+<h1>R E C E N T        Q U E S T I O N S</h1>
+<hr style="border: 1px;border-style: dashed;border-color: grey;">
+{% for question in questions %}
+	<section>
+		<header>
+			<h2 style = "font-family: 'Courier New', Courier, monospace;">{{ question.subject }}</h2>
+			<p>{{ question.author }} &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; {{ question.time }}</p>
+		</header>
+		<blockquote>
+		<p>{{ question.desc }}</p>
+		</blockquote>
+		
+		<ul class = "actions small">
+			<li><a href = "{% url 'like' question.id %}" class = "button primary small"> Upvote &MediumSpace;&MediumSpace; {{ question.liked.num }}</a></li>
+			<li><a href = "{% url 'dislike' question.id %}" class = "button small"> Downvote &MediumSpace;-&MediumSpace;{{ question.disliked.numd }}</a></li>
+		</ul>
+		</section>
+		
+{% endfor %}
+
 </div>
 {% endblock 1 %}

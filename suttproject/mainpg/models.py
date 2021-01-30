@@ -13,3 +13,11 @@ class Question(models.Model):
         return self.subject
     def get_absolute_url(self):
         return reverse('home')
+
+class Like(models.Model):
+    num = models.IntegerField()
+    oQ = models.OneToOneField(Question,on_delete=models.CASCADE,related_name='liked')
+
+class DisLike(models.Model):
+    numd = models.IntegerField()
+    oQd = models.OneToOneField(Question,on_delete=models.CASCADE,related_name='disliked')

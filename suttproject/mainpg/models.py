@@ -9,6 +9,8 @@ class Question(models.Model):
     desc = models.TextField()
     time = models.DateTimeField(default = timezone.now)
     author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "Question")
+    likes = models.IntegerField()
+    dislikes = models.IntegerField()
     def __str__(self):
         return self.subject
     def get_absolute_url(self):

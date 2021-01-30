@@ -2255,6 +2255,7 @@ input, select, textarea {
 		ul.actions li {
 			padding: 0 0 0 1em;
 			vertical-align: middle;
+			font-size: large;
 		}
 
 		ul.actions.special {
@@ -3141,7 +3142,8 @@ input, select, textarea {
 			}
 
 			header.major h2 {
-				font-size: 1.35em;
+				font-size: 2.35em;
+				font-family: 'Courier New', Courier, monospace;
 			}
 
 		/* List */

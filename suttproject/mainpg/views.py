@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from .models import Question
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -30,3 +31,7 @@ def dislike(request,**kwargs):
     Q.dislikes += 1
     Q.save()
     return redirect('home')
+
+#def login(request):
+#    x = "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=691613199043-nq7r07hc2k2kr53d7ggum5gn2udbaied.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile&response_type=code&state=fLkYaVi1rkTX&flowName=GeneralOAuthFlow"
+#    return HttpResponse(<a href = x></a>)

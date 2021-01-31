@@ -32,4 +32,23 @@
 {% endfor %}
 
 </div>
+
+<footer id="footer">
+	<div class="inner">
+		{% if user.is_authenticated %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
+		<ul class="icons">
+			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+
+		{% else %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
+		<ul class="icons">
+			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		</ul>
+		{% endif %}
+			<ul class="copyright">
+			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+</footer>
 {% endblock 1 %}

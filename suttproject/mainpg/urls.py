@@ -10,7 +10,8 @@ urlpatterns = [
     path('like/question/<int:q_id>/',mainpgviews.like, name = 'like'),
     path('dislike/question/<int:pk>/',mainpgviews.dislike, name = 'dislike'),
     path('accounts/', include('allauth.urls')),
- #   path('login/',mainpgviews.login, name = 'login'),
+    path('view/Question/<int:pk>/', mainpgviews.viewans, name='viewans'),
+    path('answer/Question/<int:pk>/', mainpgviews.answer, name = 'answer'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

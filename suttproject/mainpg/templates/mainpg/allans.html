@@ -1,0 +1,49 @@
+{% extends 'mainpg/base.html' %}
+{% block 1 %}
+<!-- One -->
+<div id = "main">
+<section id="one">
+	<header class="major">
+		<h2><b>A L L     A N S W E R S</b></h2>
+	</header>
+</section>
+<hr style="border: 2px;border-style: inset;border-color: black;">
+<hr style="border: 1px;border-style: dashed;border-color: grey;">
+{% for anss in ans %}
+	<section>
+		<header>
+			</header>
+		<blockquote>
+            <h2 style = "font-family: 'Courier New', Courier, monospace;">{{ anss.ans }}</h2>
+        </blockquote>
+        <h2><b>A n s w e r e d   B y :</b></h2>
+		<h3><i>	<p>{{ anss.author }} &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;  {{ anss.time }}</p>
+		
+		</i></h3>
+		
+		
+		</section>
+		
+{% endfor %}
+
+</div>
+
+<footer id="footer">
+	<div class="inner">
+		{% if user.is_authenticated %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
+		<ul class="icons">
+			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+
+		{% else %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
+		<ul class="icons">
+			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		</ul>
+		{% endif %}
+			<ul class="copyright">
+			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+</footer>
+{% endblock 1 %}

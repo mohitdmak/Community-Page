@@ -14,15 +14,19 @@ class ask(CreateView):
 
     def form_valid(self, form):
         form.instance.author=self.request.user
+        form.instance.likes = 0
+        form.instance.dislikes = 0
         messages.success(self.request,'Your Question is now Posted')
         return super().form_valid(form)
 
 def like(request,q_id):
     q = Question.objects.filter(id = q_id)[0]
-    q.likes += 1
+    q.likes = q.likes + 1
+    q.save()
     return redirect('home')
 
 def dislike(request,**kwargs):
     Q = Question.objects.filter(id = kwargs['pk'])[0]
     Q.dislikes += 1
+    Q.save()
     return redirect('home')

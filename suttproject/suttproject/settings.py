@@ -142,6 +142,13 @@ STATICFILES_DIRS = [
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'hd': 'pilani.bits-pilani.ac.in'
+        },
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:

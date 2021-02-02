@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2p*7x_b@@#7_rsj4gfqn04+$7ak*hy8y+cx=kg$lz3t04m@u6l'
+SECRET_KEY = 'lol popat'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -153,8 +153,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '691613199043-nq7r07hc2k2kr53d7ggum5gn2udbaied.apps.googleusercontent.com',
-            'secret': 'Y4tNp6m0E6FrTgfApx3wr-t_',
+            'client_id': 'lol u can see',
+            'secret': 'lololol',
             'key': ''
         }
     }

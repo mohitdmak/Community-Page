@@ -15,3 +15,9 @@ class Question(models.Model):
         return self.subject
     def get_absolute_url(self):
         return reverse('home')
+
+class Answers(models.Model):
+    ans = models.TextField()
+    author = models.ForeignKey(User,on_delete=models.CASCADE, related_name='ansrs')
+    time = models.DateTimeField(default=timezone.now)
+    of = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='allans')

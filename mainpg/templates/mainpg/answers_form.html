@@ -1,0 +1,20 @@
+{% extends 'mainpg/base.html' %}
+{% load crispy_forms_tags %}
+{% block 1 %}
+<div id = "main">
+<form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <header class="major">
+            <h1><b>Describe your answer </b></h1>
+        </header>
+        {{ form|crispy }}
+    </fieldset>
+    <br>
+    <div class="form-group">
+        <button class="button" type="submit">Answer</button>
+
+    </div>
+</form>
+</div>
+{% endblock 1 %}

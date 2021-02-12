@@ -12,6 +12,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('view/Question/<int:pk>/', mainpgviews.viewans, name='viewans'),
     path('answer/Question/<int:pk>/', mainpgviews.answer, name = 'answer'),
+    path('profile/<int:pk>/', mainpgviews.seeprofile , name = 'seeprofile'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

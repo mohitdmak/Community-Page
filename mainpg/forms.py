@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Question, Answers
+from .models import Question, Answers, Profile
 
 from collections import OrderedDict
 
@@ -28,3 +28,17 @@ class answerForm(forms.ModelForm):
         model=Answers
         
         fields=['ans']
+
+class UserUpdateForm(forms.ModelForm):
+    Contact_Email=forms.EmailField()
+    Bio = forms.Textarea
+    Name = forms.CharField
+
+    class Meta:
+        model=Profile
+        fields=['Contact_Email','Bio','Name']
+
+class UserPicUpdateForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        fields=['dp']

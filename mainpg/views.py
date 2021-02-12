@@ -1,11 +1,11 @@
 from django.http.response import HttpResponse
-from .models import Question, Answers, Like, DisLike
+from .models import Question, Answers, Like, DisLike, Profile
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import answerForm
+from .forms import answerForm, UserPicUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialAccount
 
@@ -20,7 +20,7 @@ def home(request):
             q.save()
         qset = Question.objects.all().order_by('-likes')
         a = qset.count()
-        return render(request,"mainpg/home.html",{'questions':qset, 'pic':pic,'total':a})
+        return render(request,"mainpg/base.html",{'questions':qset, 'pic':pic,'total':a})
     for q in Question.objects.all():
         q.likes = q.liked.count()
         q.dislikes = q.disliked.count()
@@ -109,3 +109,45 @@ def viewans(request, **kwargs):
         pass
     finally:
         return render(request, 'mainpg/allans.html',{'ans':qn.allans.all()})
+
+def seeprofile(request, **kwargs):
+    u = User.objects.filter(id = kwargs['pk'])[0]
+    su = SocialAccount.objects.filter(user = u)[0]
+    suname = su.extra_data['name']
+    suemail = su.extra_data['email']
+    suoriginaldp = su.extra_data['picture']
+    qset = Question.objects.filter(author = u)
+    rec = qset[0]
+    recentq = rec.id
+    recent = rec.subject[0:24]
+
+    try:
+        su.profile
+    except:
+        Profile.objects.create(usr = su, Name = suname, Contact_Email = suemail, Bio = "Hey There! I am using the BITS Community Page!", originaldp = suoriginaldp)
+        Profile.save()
+        p = Profile.objects.filter(usr = su)[0]
+    else:
+        p = Profile.objects.filter(usr = su)[0]
+    finally:
+        if request.user == su:
+            if request.method=='POST':
+                u_form=UserUpdateForm(request.POST,instance=request.user)
+                p_form=UserPicUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+                if u_form.is_valid() and p_form.is_valid():
+                    u_form.save()
+                    p_form.save()
+                    usernamee = u_form.cleaned_data.get('name')
+                    messages.success(request,f'CONGRATS {usernamee} !, YOUR PROFILE INFO IS UPDATED!')
+                    return redirect("home")
+            else:
+                u_form=UserUpdateForm(instance=request.user.profile)
+                p_form=UserPicUpdateForm(instance=request.user.profile)
+                context={'u_form':u_form,'p_form':p_form}
+                return render(request,'mainpg/profile.html',context)
+            p = Profile.objects.filter(usr = su)[0]
+            return render(request, 'mainpg/profile.html', {'profile': p})
+        else:
+            p = Profile.objects.filter(usr = su)[0]
+            x = "https://www.google.com/search?q=" + str(p.Contact_Email)
+            return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x, 'recent': recent, 'recentq':recentq})

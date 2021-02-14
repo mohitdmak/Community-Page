@@ -1,4 +1,21 @@
 {% extends 'mainpg/base.html' %}
+{% load static %}
+{% block 2 %}
+<div class="inner">
+    {% if pic %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
+    {% else %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    {% endif %}
+	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
+	<h2><br>BITS Community Page <br>
+	<br>By:
+	<i><b>mohitdmak</b></i></h2>
+	</div>
+{% endblock 2 %}
+
+
 {% block 1 %}
 <!-- One -->
 <div id = "main">
@@ -11,15 +28,14 @@
 <hr style="border: 1px;border-style: dashed;border-color: grey;">
 {% for anss in ans %}
 	<section>
-		<header>
-			</header>
 		<blockquote>
-            <h2 style = "font-family: 'Courier New', Courier, monospace;">{{ anss.ans }}</h2>
+            <h3 style = "font-family: 'Courier New', Courier, monospace;">{{ anss.ans }}</h3>
         </blockquote>
-        <h2><b>A n s w e r e d   B y :</b></h2>
-		<h3><i>	<p>{{ anss.author }} &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;  {{ anss.time }}</p>
-
-		</i></h3>
+        <h4><b>A n s w e r e d   B y :</b></h4>
+		{% for usr in anss.author.socialaccount_set.all %}
+		<h5><i>	<p><a href = "{% url 'seeprofile' anss.author.id %}">{{ usr.profile.Name }}</a> &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;  {{ anss.time }}</p>
+		{% endfor %}
+		</i></h5>
 
 
 		</section>

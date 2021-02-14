@@ -1,0 +1,29 @@
+{% extends 'mainpg/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block 1 %}
+<div id = "main">
+    <section id="two">
+    
+    <div class="row">
+        <article class="col-6 col-12-xsmall work-item">
+            <a href= {{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>   
+        </article>
+        </div>
+        
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">UPDATE PROFILE PICTURE</legend>
+                  
+                    {{ p_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">UPDATE !</button>
+    
+                </div>
+            </form>
+            </section>
+            </div>
+
+{% endblock 1 %}

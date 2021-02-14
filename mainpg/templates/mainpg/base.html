@@ -3,16 +3,52 @@
 <!--
 	Strata by HTML5 UP
 	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Free for personal and commercial use under 					the CCA 3.0 license (html5up.net/license)
 -->
 <html>
 	<head>
-		<title>Strata by HTML5 UP</title>
+		<title>Community Page - BITS</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'mainpg/assets/css/main.css' %}" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+		<style>
+			#log {
+				position: fixed;
+  				top:0px;
+				width: 885px;
+				height: 60px;
+  				right:0px;
+  				display: table;
+  				background: rgba(66, 37, 3, 0.445);
+  				color: rgba(2, 44, 29, 0.815);
+			}
+			#log1 {
+				position:fixed;
+				top:10px;
+				right:18px;
+				
+			}
+			#log2 {
+				position:fixed;
+				top:10px;
+				right:170px;
+				
+			}
+			#log3 {
+				position:fixed;
+				top:10px;
+				right:340px;
+				
+			}
+			#log4 {
+				position:fixed;
+				top:10px;
+				right:740px;
+				
+			}
+		</style>
 
 	</head>
 	<body class="is-preload">
@@ -33,6 +69,15 @@
 			        {% endfor %}
 			        {% endif %}
 			        </div>
+					{% if user.is_authenticated %}
+					<div id = "log">
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log4"><a href = "{% url 'home' %}" >HOME</a></h3>
+						
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log1"><a href = "{% url 'seeprofile' user.id %}" >My Profile</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log2"><a href = "{% url 'FOLLOWINGLIST' %}" >Followings</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log3"><a href = "{% url 'feed' %}" >Feed</a></h3>
+					</div>
+					{% endif %}
 			        </div>
 			        </main>
         <!-- Main -->
@@ -447,11 +492,11 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
             <!--
 			</div>
         -->
-        {% block 1%}
+        {% block 1 %}
         {% endblock 1 %}
 
 		<!-- Footer -->
-		
+		<!--
 			<footer id="footer">
 				<div class="inner">
 					<ul class="icons">
@@ -465,7 +510,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					</ul>
 				</div>
 			</footer>
-		
+		-->
 		<!-- Scripts -->
 			<script src="{% static 'mainpg/assets/js/jquery.min.js' %}"></script>
 			<script src="{% static 'mainpg/assets/js/jquery.poptrox.min.js' %}"></script>

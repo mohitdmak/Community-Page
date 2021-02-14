@@ -31,11 +31,10 @@
                 <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                 <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
                 <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-                <li><a href="#" class="icon solid fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
             </ul>
-           
-            <h3><a class = "btn btn-outline-info" href = "{% url 'FOLLOW' profile.usr.user.id %}">F O L L O W</a></h3>
-            <br>
+            <h3><a class = "btn btn-outline-danger" href = "{% url 'UNFOLLOW' profile.usr.user.id %}">U N F O L L O W</a></h3>
+          
             <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Recent Activity Link:</i></h3>
             <h6 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><b> [ Click below to view the Quesion ]</b></i></h6>
             <br>

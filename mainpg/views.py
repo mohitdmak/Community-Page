@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse
-from .models import Question, Answers, Like, DisLike, Profile
+from .models import Question, Answers, Like, DisLike, Profile, FollowList
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -12,15 +12,19 @@ from allauth.socialaccount.models import SocialAccount
 def home(request):
     if request.user.is_authenticated:
         u = request.user
-        usr = SocialAccount.objects.filter(user = u)[0]
-        pic = usr.extra_data['picture']
+        usrr = SocialAccount.objects.filter(user = u)[0]
+        p = Profile.objects.filter(usr = usrr)[0]
+        if p.dp == 'default.png':
+            pic = usr.extra_data['picture']
+        else:
+            pic = p.dp.url
         for q in Question.objects.all():
             q.likes = q.liked.count()
             q.dislikes = q.disliked.count()
             q.save()
         qset = Question.objects.all().order_by('-likes')
         a = qset.count()
-        return render(request,"mainpg/base.html",{'questions':qset, 'pic':pic,'total':a})
+        return render(request,"mainpg/home.html",{'questions':qset, 'pic':pic,'total':a})
     for q in Question.objects.all():
         q.likes = q.liked.count()
         q.dislikes = q.disliked.count()
@@ -82,10 +86,20 @@ def dislike(request,q_id):
     messages.success(request,'Your have downvoted the Question !!!')
     return redirect('home')
 
+def feed(request):
+    return render(request, 'mainpg/feed.html', {'feed': request.user.saved.all()})
 
 @login_required()
 def answer(request, **kwargs):
     qsn = Question.objects.filter(id = kwargs['pk'])[0]
+    if request.user.is_authenticated:
+        u = request.user
+        usrr = SocialAccount.objects.filter(user = u)[0]
+        p = Profile.objects.filter(usr = usrr)[0]
+        if p.dp == 'default.png':
+            pic = usr.extra_data['picture']
+        else:
+            pic = p.dp.url
     if request.method == 'POST':
         form=answerForm(request.POST)
         if form.is_valid():
@@ -96,11 +110,20 @@ def answer(request, **kwargs):
             return redirect('home')
     else:
         form = answerForm
-    return render(request,'mainpg/answer.html',{'Form':form})
+    return render(request,'mainpg/answer.html',{'Form':form, 'pic':pic})
 
 
 def viewans(request, **kwargs):
     qn = Question.objects.filter(id = kwargs['pk'])[0]
+    if request.user.is_authenticated:
+        u = request.user
+        usrr = SocialAccount.objects.filter(user = u)[0]
+        p = Profile.objects.filter(usr = usrr)[0]
+        if p.dp == 'default.png':
+            pic = usr.extra_data['picture']
+        else:
+            pic = p.dp.url
+    
     try:
         qn.allans
     except:
@@ -108,7 +131,41 @@ def viewans(request, **kwargs):
     else:
         pass
     finally:
-        return render(request, 'mainpg/allans.html',{'ans':qn.allans.all()})
+        return render(request, 'mainpg/allans.html',{'ans':qn.allans.all(), 'pic':pic})
+
+def edit(request, **kwargs):
+    u = User.objects.filter(id = kwargs['pk'])[0]
+    su = SocialAccount.objects.filter(user = u)[0]
+    if request.method=='POST':
+        u_form=UserUpdateForm(request.POST,instance=su.profile)
+        if u_form.is_valid():
+                u_form.save()
+                usernamee = u_form.cleaned_data.get('Name')
+                messages.success(request,f'CONGRATS {usernamee} !, YOUR PROFILE INFO IS UPDATED!')
+                return redirect("home")
+    else:
+        u_form=UserUpdateForm(instance=su.profile)
+        context={'u_form':u_form}
+        return render(request, 'mainpg/profile.html', {'profile': su.profile,'u_form': u_form})
+
+def editpic(request, **kwargs):
+    u = User.objects.filter(id = kwargs['pk'])[0]
+    su = SocialAccount.objects.filter(user = u)[0]
+    p = Profile.objects.filter(usr = su)[0]
+    if p.dp == 'default.png': 
+        x = su.extra_data['picture']
+    else:
+        x = p.dp.url
+    if request.method=='POST':
+        p_form=UserPicUpdateForm(request.POST, request.FILES, instance=su.profile)
+        if p_form.is_valid():
+            p_form.save()
+            usernamee = su.profile.Name
+            messages.success(request,f'CONGRATS {usernamee} !, YOUR PROFILE INFO IS UPDATED!')
+            return redirect("home")
+    else:
+        p_form=UserPicUpdateForm(instance=su.profile)
+        return render(request, 'mainpg/profilepic.html', {'profile': su.profile, 'p_form': p_form, 'picc': x})
 
 def seeprofile(request, **kwargs):
     u = User.objects.filter(id = kwargs['pk'])[0]
@@ -130,24 +187,53 @@ def seeprofile(request, **kwargs):
     else:
         p = Profile.objects.filter(usr = su)[0]
     finally:
-        if request.user == su:
-            if request.method=='POST':
-                u_form=UserUpdateForm(request.POST,instance=request.user)
-                p_form=UserPicUpdateForm(request.POST,request.FILES,instance=request.user.profile)
-                if u_form.is_valid() and p_form.is_valid():
-                    u_form.save()
-                    p_form.save()
-                    usernamee = u_form.cleaned_data.get('name')
-                    messages.success(request,f'CONGRATS {usernamee} !, YOUR PROFILE INFO IS UPDATED!')
-                    return redirect("home")
-            else:
-                u_form=UserUpdateForm(instance=request.user.profile)
-                p_form=UserPicUpdateForm(instance=request.user.profile)
-                context={'u_form':u_form,'p_form':p_form}
-                return render(request,'mainpg/profile.html',context)
+        if request.user == su.user:
             p = Profile.objects.filter(usr = su)[0]
-            return render(request, 'mainpg/profile.html', {'profile': p})
+            id = p.usr.user.id
+            if p.dp == 'default.png': 
+                x = su.extra_data['picture']
+            else:
+                x = p.dp.url 
+            return render(request, 'mainpg/yourprofile.html', {'profile': p, 'picc': x, 'recent': recent, 'recentq':recentq, 'id': id})  
         else:
             p = Profile.objects.filter(usr = su)[0]
-            x = "https://www.google.com/search?q=" + str(p.Contact_Email)
-            return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x, 'recent': recent, 'recentq':recentq})
+            us = SocialAccount.objects.filter(user = request.user)[0]
+            for x in us.followings.all():
+                if su == x.usrtf:
+                    if p.dp == 'default.png':
+                        x = su.extra_data['picture']
+                    else:
+                        x = p.dp.url
+                    return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
+            if p.dp == 'default.png':
+                x = su.extra_data['picture']
+            else:
+                x = p.dp.url 
+            return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
+
+
+def follow(request,**kwargs):
+    u = User.objects.filter(id = kwargs['pk'])[0]
+    usertofollow = SocialAccount.objects.filter(user = u)[0]
+    username = usertofollow.extra_data['name']
+    messages.success(request,f'You are now following { username } :)')
+    su = SocialAccount.objects.filter(user = request.user)[0]
+    su.followings.create(usrtf = usertofollow)
+    return redirect("home")
+
+
+def unfollow(request,**kwargs):
+    u = User.objects.filter(id = kwargs['pk'])[0]
+    usertoremove = SocialAccount.objects.filter(user = u)[0]
+    su = SocialAccount.objects.filter(user = request.user)[0]
+    username = usertoremove.extra_data['name']
+    for fl in su.followings.all():
+        if fl.usrtf == usertoremove:
+            fl.delete()
+    messages.success(request,f'You have successfully unfollowed { username } :(')
+    return redirect('home')
+
+
+def followinglist(request):
+    su = SocialAccount.objects.filter(user = request.user)[0]
+    return render(request,"mainpg/followinglist.html",{'flist': su.followings.all()})

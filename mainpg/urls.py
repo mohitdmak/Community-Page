@@ -13,6 +13,13 @@ urlpatterns = [
     path('view/Question/<int:pk>/', mainpgviews.viewans, name='viewans'),
     path('answer/Question/<int:pk>/', mainpgviews.answer, name = 'answer'),
     path('profile/<int:pk>/', mainpgviews.seeprofile , name = 'seeprofile'),
+    path('profile/edit/<int:pk>/', mainpgviews.edit , name = 'edit'),
+    path('profile/pic/edit/<int:pk>/', mainpgviews.editpic , name = 'editpic'),
+    
+    path("profile/<int:pk>/follow/",mainpgviews.follow, name="FOLLOW"),
+    path("followinglist/",mainpgviews.followinglist,name="FOLLOWINGLIST"),
+    path("profile/<int:pk>/unfollow/",mainpgviews.unfollow,name="UNFOLLOW"),
+    path("feed/", mainpgviews.feed, name = "feed"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

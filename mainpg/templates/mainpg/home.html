@@ -28,12 +28,15 @@
 <hr style="border: 2px;border-style: inset;border-color: black;">
 <h1>R E C E N T    &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;    Q U E S T I O N S</h1>
 <hr style="border: 1px;border-style: dashed;border-color: grey;">
+<br><br>
 {% for question in questions %}
-	<section>
+	
 		<header>
 			<h2 style = "font-family: 'Courier New', Courier, monospace;"><i><b>Q :</b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ question.subject }}</h2>
-			<br>
-			<p><b>By :</b>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ question.author }} &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; <b>At :</b>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ question.time }}</p>
+			
+			{% for user in question.author.socialaccount_set.all %}
+			<p><h5><b>By :</b>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;<i><b><a href = "{% url 'seeprofile' question.author.id %}"> {{ user.profile.Name }}</a> </b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; <b>At :</b>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ question.time }}</h5></p>
+			{% endfor %}
 		</header>
 		<blockquote>
 		<p>{{ question.desc }}</p>
@@ -42,13 +45,16 @@
 		<ul class = "actions small">
 			<li><a href = "{% url 'like' question.id %}" class = "button primary small"> Upvote &MediumSpace;&MediumSpace; {{ question.likes }}</a></li>
 			<li><a href = "{% url 'dislike' question.id %}" class = "button small"> Downvote &MediumSpace;-&MediumSpace;{{ question.dislikes }}</a></li>
-			<li><a href = "{% url 'viewans' question.id %}" class = "button small"><i>View Answers &MediumSpace;&MediumSpace;</i></a></li>
-			<li><a href = "{% url 'answer' question.id %}" class = "button primary small"><i>Answer &MediumSpace;&MediumSpace; {{ question.allans.count }}</i></a></li>
+			<li><a href = "{% url 'viewans' question.id %}" class = "button small"><i>View Answers &MediumSpace;&MediumSpace;[ {{ question.allans.count }} ]</i></a></li>
+			<li><a href = "{% url 'answer' question.id %}" class = "button primary small"><i>Answer &MediumSpace;&MediumSpace; </i></a></li>
 		</ul>
 		</section>
-
+		<hr>
 {% endfor %}
-
+<br>
+<br>
+<h4 style="font-family: 'Courier New', Courier, monospace;"><i>Source&MediumSpace;&MediumSpace;Code :</i>
+<a href="https://github.com/mohitdmak/SUTT" class="icon brands fa-github"><span class="label">Github</span></a>
 </div>
 
 <footer id="footer">
@@ -58,10 +64,7 @@
 		<ul class="icons">
 			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 			</ul>
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><i>Source&MediumSpace;&MediumSpace;Code</i></h1>
-		<ul>
-			<li><a href="https://github.com/mohitdmak/SUTT" class="icon brands fa-github"><span class="label">Github</span></a></li>
-			</ul>
+		
 		{% else %}
 		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
 
@@ -69,10 +72,7 @@
 			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 
 		</ul>
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><i>Source&MediumSpace;&MediumSpace;Code</i></h1>
-		<ul>
-			<li><a href="https://github.com/mohitdmak/SUTT" class="icon brands fa-github"><span class="label">Github</span></a></li>
-			</ul>
+		
 		{% endif %}
 			<ul class="copyright">
 			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>

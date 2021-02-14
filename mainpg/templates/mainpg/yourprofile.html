@@ -20,9 +20,15 @@
     <section id="two">
     <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><u>P R O F I L E &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;    P A G E  :</u></h1>
     <br>
+    <ul class = "actions small">
+
+    <li><h4><a href = "{% url 'edit' id %}" class = "button primary small"> Edit Profile Page</a></h4></li>
+    <li><h4><a href = "{% url 'editpic' id %}" class = "button small"> Edit Profile Picture</a></h4></li>
+    </ul>
+    <br>
     <div class="row">
         <article class="col-6 col-12-xsmall work-item">
-            <a href= {{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>   
+            <a href={{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>   
         </article>
         <article>
             <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Let Us Connect !</i></h3>
@@ -31,15 +37,15 @@
                 <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                 <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
                 <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-                <li><a href="#" class="icon solid fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
             </ul>
-           
-            <h3><a class = "btn btn-outline-info" href = "{% url 'FOLLOW' profile.usr.user.id %}">F O L L O W</a></h3>
+            <br>
+            <br>
             <br>
             <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Recent Activity Link:</i></h3>
             <h6 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><b> [ Click below to view the Quesion ]</b></i></h6>
             <br>
-            <a href = "{% url 'viewans' recentq %}"><h5 style = "font-family: 'Courier New', Courier, monospace;font-display:unset;"><i><b><u>&MediumSpace;{{ recent }}...</u></b></i></h5></a>
+            <h5 style = "font-family: 'Courier New', Courier, monospace;font-display:unset;"><i><b><u>&MediumSpace;<a href = "{% url 'viewans' recentq %}">{{ recent }}...</u></b></i></h5></a>
             <!--<h5 style = "font-family: 'Courier New', Courier, monospace;"><i><b>Q :</b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ recent.subject }}</h5>-->
 			<br>
             

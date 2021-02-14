@@ -1,0 +1,70 @@
+{% extends 'mainpg/base.html' %}
+{% load static %}
+{% block 2 %}
+<div class="inner">
+    {% if pic %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
+    {% else %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    {% endif %}
+	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
+	<h2><br>BITS Community Page <br>
+	<br>By:
+	<i><b>mohitdmak</b></i></h2>
+	</div>
+{% endblock 2 %}
+
+
+{% block 1 %}
+<!-- One -->
+<div id = "main">
+<section id="one">
+	<header class="major">
+		<h2><b>Saved    &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; Quesions</b></h2>
+	</header>
+</section>
+<hr style="border: 2px;border-style: inset;border-color: black;">
+<hr style="border: 1px;border-style: dashed;border-color: grey;">
+{% for q in feed %}
+	<section>
+        <h2 style = "font-family: 'Courier New', Courier, monospace;"><i><b>Q :</b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ q.ofQ.subject }}</h2>
+		
+        {% for usr in q.ofQ.author.socialaccount_set.all %}
+			<b><i>By :</i></b><h4> <a href = "{% url 'seeprofile' q.ofQ.author.id %}">{{ usr.profile.Name }}</a> &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;  {{ q.ofQ.time }}</p>
+		{% endfor %}
+		</i></h4></h4>
+        <blockquote>
+            <h3 style = "font-family: 'Courier New', Courier, monospace;">{{ q.ofQ.desc }}</h3>
+        </blockquote>
+        <ul class = "actions small">
+            &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;
+			<li>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;<a href = "{% url 'viewans' q.ofQ.id %}" class = "button small"><i>View Answers &MediumSpace;&MediumSpace;[ {{ q.ofQ.allans.count }} ]</i></a></li>
+			&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;
+            <li><a href = "{% url 'answer' q.ofQ.id %}" class = "button primary small"><i>Answer &MediumSpace;&MediumSpace; </i></a></li>
+		</ul>
+		</section>
+
+{% endfor %}
+
+</div>
+
+<footer id="footer">
+	<div class="inner">
+		{% if user.is_authenticated %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
+		<ul class="icons">
+			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+
+		{% else %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
+		<ul class="icons">
+			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		</ul>
+		{% endif %}
+			<ul class="copyright">
+			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+</footer>
+{% endblock 1 %}

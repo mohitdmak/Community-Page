@@ -1,0 +1,87 @@
+{% extends 'mainpg/base.html' %}
+{% load static %}
+{% block 2 %}
+<div class="inner">
+    {% if pic %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
+    {% else %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    {% endif %}
+	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
+	<h2><br>BITS Community Page <br>
+	<br>By:
+	<i><b>mohitdmak</b></i></h2>
+	</div>
+{% endblock 2 %}
+
+{% block 1 %}
+<div id = "main">
+    <section id="two">
+    <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><u>P R O F I L E &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;    P A G E  :</u></h1>
+    <br>
+    <ul class = "actions small">
+
+    <li><h4><a href = "{% url 'edit' id %}" class = "button primary small"> Edit Profile Page</a></h4></li>
+    <li><h4><a href = "{% url 'editpic' id %}" class = "button small"> Edit Profile Picture</a></h4></li>
+    </ul>
+    <br>
+    <div class="row">
+        <article class="col-6 col-12-xsmall work-item">
+            <a href={{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>   
+        </article>
+        <article>
+            <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Let Us Connect !</i></h3>
+            <br>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Recent Activity Link:</i></h3>
+            <h6 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><b> [ Click below to view the Quesion ]</b></i></h6>
+            <br>
+            <br>
+            
+            <ul class="copyright">
+                &copy; Verified User
+            </ul>
+        </article>
+        </div>
+    <header class="major">
+		<h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Name :</i></h3><h2 style="font-family: 'Courier New', Courier, monospace;"><b><a href = "{% url 'seeprofile' profile.usr.user.id %}">{{ profile.Name }}</a></b></h2>
+	</header>
+    <br>
+    <header>
+        <h3 style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Contact Email :</i></h3><h2 style="font-family: 'Courier New', Courier, monospace;"><b>{{ profile.Contact_Email }}</b></h2>
+        <br>
+    </header>
+    <blockquote>
+        <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>BIO :</i></h3>
+    <p style="font-family: 'Courier New', Courier, monospace; font-size:x-large;">{{ profile.Bio }}</p>
+    </blockquote>
+    </section>
+</div>
+<footer id="footer">
+	<div class="inner">
+		{% if user.is_authenticated %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
+		<ul class="icons">
+			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+
+		{% else %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
+		<ul class="icons">
+			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		</ul>
+		{% endif %}
+			<ul class="copyright">
+			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+</footer>
+{% endblock 1 %}

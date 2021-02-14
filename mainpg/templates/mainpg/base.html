@@ -24,6 +24,12 @@
   				background: rgba(66, 37, 3, 0.445);
   				color: rgba(2, 44, 29, 0.815);
 			}
+			#log0 {
+				position:fixed;
+				top:30px;
+				left:18px;
+				
+			}
 			#log1 {
 				position:fixed;
 				top:10px;
@@ -60,10 +66,10 @@
 			</header>
 			<main role="main" class="container">
 			<div class = "row">
-			<div class="col-md-8">
+			<div class="col-md-8" id = "log0">
 			    {% if messages %}
 			    {% for message in messages %}
-			    <div class="alert alert-{{ message.tags }}">
+			    <div class="alert alert-{{ message.tags }}" id = "log0">
 			        {{ message }}
 			        </div>
 			        {% endfor %}

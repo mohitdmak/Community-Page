@@ -1,5 +1,20 @@
 {% extends 'mainpg/base.html' %}
 {% load static %}
+{% block 2 %}
+<div class="inner">
+    {% if pic %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
+    {% else %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    {% endif %}
+	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
+	<h2><br>BITS Community Page <br>
+	<br>By:
+	<i><b>mohitdmak</b></i></h2>
+	</div>
+{% endblock 2 %}
+
 {% block 1 %}
 <div id = "main">
     <section id="two">
@@ -7,19 +22,16 @@
     <br>
     {% for users in flist %}
 	<section>
-		<header>
             
             {% if users.usrtf.profile.dp == 'default.png' %}
             <a href="#" class="image avatar"><img src={{ users.usrtf.profile.originaldp }} alt = {{ users.usrtf.profile.originaldp }} /></a>
             {% else %}
             <a href="#" class="image avatar"><img src={{ users.usrtf.profile.dp.url }} alt = {{ users.usrtf.profile.originaldp }} /></a>
             {% endif %}
-            &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; 
             <a class="btn btn-outline-danger" href="{% url 'UNFOLLOW' users.usrtf.user.id %}">Unfollow</a>
 			<h2 style = "font-family: 'Courier New', Courier, monospace;"><i><b><a href = "{% url 'seeprofile' users.usrtf.user.id %}">{{ users.usrtf.profile.Name }}</a></b></i></h2>
 			
         
-		</header>
 		<blockquote>
 		<p>{{ users.usrtf.profile.Bio }}</p>
 		</blockquote>
@@ -29,4 +41,22 @@
     {% endfor %}
     </section>
     </div>
+    <footer id="footer">
+        <div class="inner">
+            {% if user.is_authenticated %}
+            <h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
+            <ul class="icons">
+                <li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+    
+            {% else %}
+            <h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
+            <ul class="icons">
+                <li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+            {% endif %}
+                <ul class="copyright">
+                <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </footer>
     {% endblock 1 %}

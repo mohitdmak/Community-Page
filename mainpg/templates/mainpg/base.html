@@ -28,31 +28,31 @@
 				position:fixed;
 				top:30px;
 				left:18px;
-				
+
 			}
 			#log1 {
 				position:fixed;
 				top:10px;
 				right:18px;
-				
+
 			}
 			#log2 {
 				position:fixed;
 				top:10px;
 				right:170px;
-				
+
 			}
 			#log3 {
 				position:fixed;
 				top:10px;
 				right:340px;
-				
+
 			}
 			#log4 {
 				position:fixed;
 				top:10px;
 				right:740px;
-				
+
 			}
 		</style>
 
@@ -78,11 +78,16 @@
 					{% if user.is_authenticated %}
 					<div id = "log">
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log4"><a href = "{% url 'home' %}" >HOME</a></h3>
-						
+
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log1"><a href = "{% url 'seeprofile' user.id %}" >My Profile</a></h3>
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log2"><a href = "{% url 'FOLLOWINGLIST' %}" >Followings</a></h3>
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log3"><a href = "{% url 'feed' %}" >Feed</a></h3>
 					</div>
+					{% else %}
+					<div id = "log">
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log4"><a href = "{% url 'home' %}" >HOME</a></h3>
+
+						</div>
 					{% endif %}
 			        </div>
 			        </main>

@@ -30,10 +30,10 @@
 <hr style="border: 1px;border-style: dashed;border-color: grey;">
 <br><br>
 {% for question in questions %}
-	
+
 		<header>
 			<h2 style = "font-family: 'Courier New', Courier, monospace;"><i><b>Q :</b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ question.subject }}</h2>
-			
+
 			{% for user in question.author.socialaccount_set.all %}
 			<p><h5><b>By :</b>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;<i><b><a href = "{% url 'seeprofile' question.author.id %}"> {{ user.profile.Name }}</a> </b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace; <b>At :</b>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ question.time }}</h5></p>
 			{% endfor %}
@@ -60,22 +60,17 @@
 <footer id="footer">
 	<div class="inner">
 		{% if user.is_authenticated %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
-		<ul class="icons">
-			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-			</ul>
-		
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
+		<a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
+
 		{% else %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
 
-		<ul class="icons">
-			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		<a href="{% url "account_login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
 
-		</ul>
-		
 		{% endif %}
 			<ul class="copyright">
-			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			<li>&copy; C S A</li>
 		</ul>
 	</div>
 </footer>

@@ -22,7 +22,7 @@
     <br>
     <div class="row">
         <article class="col-6 col-12-xsmall work-item">
-            <a href= {{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>   
+            <a href= {{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>
         </article>
         <article>
             <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Let Us Connect !</i></h3>
@@ -34,14 +34,15 @@
                 <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
             </ul>
             <h3><a class = "btn btn-outline-danger" href = "{% url 'UNFOLLOW' profile.usr.user.id %}">U N F O L L O W</a></h3>
-          
+            {% if recent %}
             <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Recent Activity Link:</i></h3>
             <h6 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><b> [ Click below to view the Quesion ]</b></i></h6>
             <br>
             <a href = "{% url 'viewans' recentq %}"><h5 style = "font-family: 'Courier New', Courier, monospace;font-display:unset;"><i><b><u>&MediumSpace;{{ recent }}...</u></b></i></h5></a>
             <!--<h5 style = "font-family: 'Courier New', Courier, monospace;"><i><b>Q :</b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ recent.subject }}</h5>-->
 			<br>
-            
+			{% endif %}
+
             <ul class="copyright">
                 &copy; Verified User
             </ul>
@@ -64,18 +65,17 @@
 <footer id="footer">
 	<div class="inner">
 		{% if user.is_authenticated %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
-		<ul class="icons">
-			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
+		<a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
 
 		{% else %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
-		<ul class="icons">
-			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-		</ul>
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
+
+		<a href="{% url "account_login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
+
 		{% endif %}
 			<ul class="copyright">
-			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			<li>&copy; C S A</li>
 		</ul>
 	</div>
 </footer>

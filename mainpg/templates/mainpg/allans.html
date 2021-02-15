@@ -47,18 +47,17 @@
 <footer id="footer">
 	<div class="inner">
 		{% if user.is_authenticated %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
-		<ul class="icons">
-			<li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
+		<a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
 
 		{% else %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
-		<ul class="icons">
-			<li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-		</ul>
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
+
+		<a href="{% url "account_login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
+
 		{% endif %}
 			<ul class="copyright">
-			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			<li>&copy; C S A</li>
 		</ul>
 	</div>
 </footer>

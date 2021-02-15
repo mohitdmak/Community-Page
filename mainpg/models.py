@@ -43,7 +43,16 @@ class Profile(models.Model):
     dp = models.ImageField(default = 'default.png',upload_to = 'profilepics')
     Bio = models.TextField()
     originaldp = models.CharField(max_length = 9999, default="")
-    
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+
+        img=Image.open(self.dp.path)
+
+        if img.height>160 or img.width>110:
+            output_size=(110,160)
+            img.thumbnail(output_size)
+            img.save(self.dp.path)
+
 class FollowList(models.Model):
     usrtf = models.ForeignKey(SocialAccount,related_name='yuser',on_delete=models.CASCADE)
     followings = models.ManyToManyField(SocialAccount,related_name='followings')

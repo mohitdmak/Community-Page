@@ -22,10 +22,10 @@ def home(request):
             Profile.objects.create(usr = su, Name = suname, Contact_Email = suemail, Bio = "Hey There! I am using the BITS Community Page!", originaldp = suoriginaldp)
             p = Profile.objects.filter(usr = su)[0]
             p.save()
-            
+
         else:
             p = Profile.objects.filter(usr = su)[0]
-        
+
         if p.dp == 'default.png':
             pic = su.extra_data['picture']
         else:
@@ -130,12 +130,32 @@ def viewans(request, **kwargs):
     if request.user.is_authenticated:
         u = request.user
         usrr = SocialAccount.objects.filter(user = u)[0]
-        p = Profile.objects.filter(usr = usrr)[0]
+        suname = usrr.extra_data['name']
+        suemail = usrr.extra_data['email']
+        suoriginaldp = usrr.extra_data['picture']
+        try:
+            usrr.profile
+        except:
+            Profile.objects.create(usr = usrr, Name = suname, Contact_Email = suemail, Bio = "Hey There! I am using the BITS Community Page!", originaldp = suoriginaldp)
+            p = Profile.objects.filter(usr = usrr)[0]
+            p.save()
+
+        else:
+            p = Profile.objects.filter(usr = usrr)[0]
+
         if p.dp == 'default.png':
             pic = usrr.extra_data['picture']
         else:
             pic = p.dp.url
-    
+        try:
+            qn.allans
+        except:
+            Answers.objects.create(of = qn)
+        else:
+            pass
+        finally:
+            return render(request, 'mainpg/allans.html',{'ans':qn.allans.all(), 'pic':pic})
+
     try:
         qn.allans
     except:
@@ -143,7 +163,7 @@ def viewans(request, **kwargs):
     else:
         pass
     finally:
-        return render(request, 'mainpg/allans.html',{'ans':qn.allans.all(), 'pic':pic})
+        return render(request, 'mainpg/allans.html',{'ans':qn.allans.all()})
 
 def edit(request, **kwargs):
     u = User.objects.filter(id = kwargs['pk'])[0]
@@ -164,7 +184,7 @@ def editpic(request, **kwargs):
     u = User.objects.filter(id = kwargs['pk'])[0]
     su = SocialAccount.objects.filter(user = u)[0]
     p = Profile.objects.filter(usr = su)[0]
-    if p.dp == 'default.png': 
+    if p.dp == 'default.png':
         x = su.extra_data['picture']
     else:
         x = p.dp.url
@@ -185,8 +205,8 @@ def seeprofile(request, **kwargs):
     suname = su.extra_data['name']
     suemail = su.extra_data['email']
     suoriginaldp = su.extra_data['picture']
-    
-    
+
+
     try:
         su.profile
     except:
@@ -204,52 +224,60 @@ def seeprofile(request, **kwargs):
                 recent = rec.subject[0:24]
                 p = Profile.objects.filter(usr = su)[0]
                 id = p.usr.user.id
-                if p.dp == 'default.png': 
+                if p.dp == 'default.png':
                     x = su.extra_data['picture']
                 else:
-                    x = p.dp.url 
+                    x = p.dp.url
                 return render(request, 'mainpg/yourprofile.html', {'profile': p, 'picc': x, 'recent': recent, 'recentq':recentq, 'id': id})
             else:
                 p = Profile.objects.filter(usr = su)[0]
                 id = p.usr.user.id
-                if p.dp == 'default.png': 
+                if p.dp == 'default.png':
                     x = su.extra_data['picture']
                 else:
-                    x = p.dp.url 
+                    x = p.dp.url
                 return render(request, 'mainpg/yourprofilenew.html', {'profile': p, 'picc': x,'id': id})
         else:
             p = Profile.objects.filter(usr = su)[0]
-            us = SocialAccount.objects.filter(user = request.user)[0]
             qset = Question.objects.filter(author = u)
-            if qset:
-                rec = qset[0]
-                recentq = rec.id
-                recent = rec.subject[0:24]
-                for x in us.followings.all():
-                    if su == x.usrtf:
-                        if p.dp == 'default.png':
-                            x = su.extra_data['picture']
-                        else:
-                            x = p.dp.url
-                    return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
-                if p.dp == 'default.png':
-                    x = su.extra_data['picture']
+            if request.user.is_authenticated:
+                us = SocialAccount.objects.filter(user = request.user)[0]
+                if qset:
+                    rec = qset[0]
+                    recentq = rec.id
+                    recent = rec.subject[0:24]
+                    for y in us.followings.all():
+                        if su == y.usrtf:
+                            if p.dp == 'default.png':
+                                x = su.extra_data['picture']
+                            else:
+                                x = p.dp.url
+                            return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
+                    if p.dp == 'default.png':
+                        x = su.extra_data['picture']
+                    else:
+                        x = p.dp.url
+                    return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
                 else:
-                    x = p.dp.url 
-                return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
+                    for y in us.followings.all():
+                        if su == y.usrtf:
+                            if p.dp == 'default.png':
+                                x = su.extra_data['picture']
+                            else:
+                                x = p.dp.url
+                        return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x })
+                    if p.dp == 'default.png':
+                        x = su.extra_data['picture']
+                    else:
+                        x = p.dp.url
+                    return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x})
             else:
-                for x in us.followings.all():
-                    if su == x.usrtf:
-                        if p.dp == 'default.png':
-                            x = su.extra_data['picture']
-                        else:
-                            x = p.dp.url
-                    return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x })
                 if p.dp == 'default.png':
                     x = su.extra_data['picture']
                 else:
-                    x = p.dp.url 
-                return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x})
+                    x = p.dp.url
+                return render(request, 'mainpg/seeprofile3.html', {'profile': p, 'picc': x })
+
 
 
 
@@ -260,6 +288,7 @@ def follow(request,**kwargs):
     messages.success(request,f'You are now following { username } :)')
     su = SocialAccount.objects.filter(user = request.user)[0]
     su.followings.create(usrtf = usertofollow)
+    su.save()
     return redirect("home")
 
 
@@ -271,6 +300,7 @@ def unfollow(request,**kwargs):
     for fl in su.followings.all():
         if fl.usrtf == usertoremove:
             fl.delete()
+            su.save()
     messages.success(request,f'You have successfully unfollowed { username } :(')
     return redirect('home')
 

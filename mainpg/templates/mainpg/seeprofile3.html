@@ -34,16 +34,10 @@
                 <li><a href="#" class="icon solid fa-instagram"><span class="label">Instagram</span></a></li>
             </ul>
 
-            <h3><a class = "btn btn-outline-info" href = "{% url 'FOLLOW' profile.usr.user.id %}">F O L L O W</a></h3>
+            <h3><a class = "btn btn-outline-info" href = "#">login to F O L L O W</a></h3>
             <br>
-            {% if recent %}
-                <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Recent Activity Link:</i></h3>
-                <h6 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><b> [ Click below to view the Quesion ]</b></i></h6>
-                <br>
-                <a href = "{% url 'viewans' recentq %}"><h5 style = "font-family: 'Courier New', Courier, monospace;font-display:unset;"><i><b><u>&MediumSpace;{{ recent }}...</u></b></i></h5></a>
-                <!--<h5 style = "font-family: 'Courier New', Courier, monospace;"><i><b>Q :</b></i>&MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;{{ recent.subject }}</h5>-->
-			    <br>
-			{% endif %}
+
+
 
             <ul class="copyright">
                 &copy; Verified User

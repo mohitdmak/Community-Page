@@ -21,42 +21,41 @@
     <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><u>P R O F I L E &MediumSpace;&MediumSpace;&MediumSpace;&MediumSpace;    P A G E  :</u></h1>
     <br>
     {% for users in flist %}
-	<section>
-            
+
+
             {% if users.usrtf.profile.dp == 'default.png' %}
             <a href="#" class="image avatar"><img src={{ users.usrtf.profile.originaldp }} alt = {{ users.usrtf.profile.originaldp }} /></a>
             {% else %}
-            <a href="#" class="image avatar"><img src={{ users.usrtf.profile.dp.url }} alt = {{ users.usrtf.profile.originaldp }} /></a>
+            <a href="#" class="image avatar"><img src={{ users.usrtf.profile.dp.url }} alt = 'No dp' /></a>
             {% endif %}
             <a class="btn btn-outline-danger" href="{% url 'UNFOLLOW' users.usrtf.user.id %}">Unfollow</a>
 			<h2 style = "font-family: 'Courier New', Courier, monospace;"><i><b><a href = "{% url 'seeprofile' users.usrtf.user.id %}">{{ users.usrtf.profile.Name }}</a></b></i></h2>
-			
-        
+    <section>
+
 		<blockquote>
 		<p>{{ users.usrtf.profile.Bio }}</p>
 		</blockquote>
-        
+
         </section>
         <hr>
     {% endfor %}
     </section>
     </div>
-    <footer id="footer">
-        <div class="inner">
-            {% if user.is_authenticated %}
-            <h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T</b></h1>
-            <ul class="icons">
-                <li><a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-    
-            {% else %}
-            <h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N</b></h1>
-            <ul class="icons">
-                <li><a href="{% url "account_login" %}" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-            </ul>
-            {% endif %}
-                <ul class="copyright">
-                <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-            </ul>
-        </div>
-    </footer>
+<footer id="footer">
+	<div class="inner">
+		{% if user.is_authenticated %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
+		<a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
+
+		{% else %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
+
+		<a href="{% url "account_login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
+
+		{% endif %}
+			<ul class="copyright">
+			<li>&copy; C S A</li>
+		</ul>
+	</div>
+</footer>
     {% endblock 1 %}

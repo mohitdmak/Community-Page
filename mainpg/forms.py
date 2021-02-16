@@ -30,13 +30,16 @@ class answerForm(forms.ModelForm):
         fields=['ans']
 
 class UserUpdateForm(forms.ModelForm):
+    Name = forms.CharField
     Contact_Email=forms.EmailField()
     Bio = forms.Textarea
-    Name = forms.CharField
-
+    Twitter_Handle = forms.CharField(required=False)
+    Instagram_Handle = forms.CharField(required=False)
+    Github_Handle = forms.CharField(required=False)
+    Linkedin_Handle = forms.CharField(required=False)
     class Meta:
         model=Profile
-        fields=['Contact_Email','Bio','Name']
+        fields=['Name','Contact_Email','Bio','Twitter_Handle','Instagram_Handle','Github_Handle','Linkedin_Handle']
 
 class UserPicUpdateForm(forms.ModelForm):
     class Meta:

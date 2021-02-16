@@ -21,19 +21,25 @@
 				height: 60px;
   				right:0px;
   				display: table;
-  				background: rgba(66, 37, 3, 0.445);
+  				background: rgba(39, 22, 2, 0.555);
   				color: rgba(2, 44, 29, 0.815);
 			}
 			#log0 {
 				position:fixed;
-				top:30px;
-				left:18px;
-
+				top:6px;
+				left:8px;
+				width:365px;
 			}
 			#log1 {
 				position:fixed;
 				top:10px;
 				right:18px;
+
+			}
+			#log11 {
+				position:fixed;
+				top:10px;
+				right:28px;
 
 			}
 			#log2 {
@@ -86,7 +92,7 @@
 					{% else %}
 					<div id = "log">
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log4"><a href = "{% url 'home' %}" >HOME</a></h3>
-
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log11"><a href = "{% url 'account_login' %}" >Register</a></h3>
 						</div>
 					{% endif %}
 			        </div>

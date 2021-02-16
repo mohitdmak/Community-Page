@@ -25,19 +25,19 @@
             <a href= {{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>
         </article>
         <article>
-            <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Let Us Connect !</i></h3>
+            <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><u>Let Us Connect !</u></i></h3>
             <br>
             <ul class="icons">
-                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-                <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-                <li><a href="#" class="icon solid fa-instagram"><span class="label">Instagram</span></a></li>
+                <h3><li><a href="{% url 'twitter' profile.usr.user.id %}" class="icon brands fa-twitter" style="color:blue;"><span class="label">Twitter</span></a></li>
+                <li><a href="{% url 'insta' profile.usr.user.id %}" class="icon brands fa-instagram" style="color:blue;"><span class="label">Insta</span></a></li>
+                <li><a href="{% url 'github' profile.usr.user.id %}" class="icon brands fa-github" style="color:blue;"><span class="label">Github</span></a></li>
+                <li><a href="{% url 'linkedin' profile.usr.user.id %}" class="icon brands fa-linkedin-in" style="color:blue;"><span class="label">Linkedin</span></a></li></h3>
             </ul>
 
             <h3><a class = "btn btn-outline-info" href = "{% url 'FOLLOW' profile.usr.user.id %}">F O L L O W</a></h3>
             <br>
             {% if recent %}
-                <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Recent Activity Link:</i></h3>
+                <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><u>Recent Activity Link :</u></i></h3>
                 <h6 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><b> [ Click below to view the Quesion ]</b></i></h6>
                 <br>
                 <a href = "{% url 'viewans' recentq %}"><h5 style = "font-family: 'Courier New', Courier, monospace;font-display:unset;"><i><b><u>&MediumSpace;{{ recent }}...</u></b></i></h5></a>

@@ -14,12 +14,17 @@ urlpatterns = [
     path('answer/Question/<int:pk>/', mainpgviews.answer, name = 'answer'),
     path('profile/<int:pk>/', mainpgviews.seeprofile , name = 'seeprofile'),
     path('profile/edit/<int:pk>/', mainpgviews.edit , name = 'edit'),
+    path('profile/create/<int:pk>/', mainpgviews.create , name = 'create'),
     path('profile/pic/edit/<int:pk>/', mainpgviews.editpic , name = 'editpic'),
-    
     path("profile/<int:pk>/follow/",mainpgviews.follow, name="FOLLOW"),
     path("followinglist/",mainpgviews.followinglist,name="FOLLOWINGLIST"),
     path("profile/<int:pk>/unfollow/",mainpgviews.unfollow,name="UNFOLLOW"),
     path("feed/", mainpgviews.feed, name = "feed"),
+    path("profile/<int:pk>/twitter/", mainpgviews.twitter, name = "twitter"),
+    path("profile/<int:pk>/insta/", mainpgviews.insta, name = "insta"),
+    path("profile/<int:pk>/github/", mainpgviews.github, name = "github"),
+    path("profile/<int:pk>/linkedin/", mainpgviews.linkedin, name = "linkedin"),
+    path("register/User/", mainpgviews.register, name="register"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

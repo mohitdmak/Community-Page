@@ -22,7 +22,9 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">UPDATE PROFILE INFO</legend>
+                <legend class="border-bottom mb-4">UPDATE PROFILE INFO</legend><i> (Fields marked with * are required )</i>
+                <br>
+                <br>
                 {{ u_form|crispy }}
             </fieldset>
             <div class="form-group">

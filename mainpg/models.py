@@ -43,6 +43,11 @@ class Profile(models.Model):
     dp = models.ImageField(default = 'default.png',upload_to = 'profilepics')
     Bio = models.TextField()
     originaldp = models.CharField(max_length = 9999, default="")
+    Twitter_Handle = models.CharField(max_length=100, default="")
+    Instagram_Handle = models.CharField(max_length=100, default="")
+    Github_Handle = models.CharField(max_length=100, default="")
+    Linkedin_Handle = models.CharField(max_length=100, default="")
+
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
 

@@ -21,8 +21,8 @@
 				height: 60px;
   				right:0px;
   				display: table;
-  				background: rgba(39, 22, 2, 0.555);
-  				color: rgba(2, 44, 29, 0.815);
+  				background: rgba(27, 18, 11, 0.74);
+  				color: rgb(255, 255, 255);
 			}
 			#log0 {
 				position:fixed;
@@ -45,19 +45,25 @@
 			#log2 {
 				position:fixed;
 				top:10px;
-				right:170px;
+				right:120px;
 
 			}
 			#log3 {
 				position:fixed;
 				top:10px;
-				right:340px;
+				right:265px;
 
 			}
 			#log4 {
 				position:fixed;
 				top:10px;
 				right:740px;
+
+			}
+			#log5 {
+				position:fixed;
+				top:10px;
+				right:420px;
 
 			}
 		</style>
@@ -67,8 +73,13 @@
 
 		<!-- Header -->
 			<header id="header">
+			    <div class="inner">
 				{% block 2 %}
 				{% endblock 2 %}
+				<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
+	            <h2><br>BITS Community Page <br>
+	            <br></h2>
+	            </div>
 			</header>
 			<main role="main" class="container">
 			<div class = "row">
@@ -85,14 +96,15 @@
 					<div id = "log">
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log4"><a href = "{% url 'home' %}" >HOME</a></h3>
 
-						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log1"><a href = "{% url 'seeprofile' user.id %}" >My Profile</a></h3>
-						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log2"><a href = "{% url 'FOLLOWINGLIST' %}" >Followings</a></h3>
-						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log3"><a href = "{% url 'feed' %}" >Feed</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log2"><a href = "{% url 'seeprofile' user.id %}" >My Profile</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log3"><a href = "{% url 'FOLLOWINGLIST' %}" >Followings</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log5"><a href = "{% url 'feed' %}" >Feed</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log1"><a href = "{% url 'logout' %}" >Logout</a></h3>
 					</div>
 					{% else %}
 					<div id = "log">
 						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log4"><a href = "{% url 'home' %}" >HOME</a></h3>
-						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log11"><a href = "{% url 'account_login' %}" >Register</a></h3>
+						<h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" id = "log11"><a href = "{% url 'login' %}" >Register / Login</a></h3>
 						</div>
 					{% endif %}
 			        </div>
@@ -511,6 +523,23 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
         -->
         {% block 1 %}
         {% endblock 1 %}
+        <footer id="footer">
+	<div class="inner">
+		{% if user.is_authenticated %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
+		<a href="{% url 'logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
+
+		{% else %}
+		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
+
+		<a href="{% url "login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
+
+		{% endif %}
+			<ul class="copyright">
+			<li>&copy; Made By: <a href="https://www.linkedin.com/in/mohitdmak/">Mohitdmak</a></li>
+		</ul>
+	</div>
+</footer>
 
 		<!-- Footer -->
 		<!--

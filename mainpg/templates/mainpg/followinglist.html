@@ -1,14 +1,7 @@
 {% extends 'mainpg/base.html' %}
 {% load static %}
 {% block 2 %}
-<div class="inner">
     <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
-   
-	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
-	<h2><br>BITS Community Page <br>
-	<br>By:
-	<i><b>mohitdmak</b></i></h2>
-	</div>
 {% endblock 2 %}
 
 {% block 1 %}
@@ -37,13 +30,5 @@
     {% endfor %}
     </section>
     </div>
-<footer id="footer">
-	<div class="inner">
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
-            <a href="{% url 'account_logout' %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
-			<ul class="copyright">
-			<li>&copy; C S A</li>
-		</ul>
-	</div>
-</footer>
+
     {% endblock 1 %}

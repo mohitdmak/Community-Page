@@ -160,3 +160,10 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 LOGIN_REDIRECT_URL = 'register'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'abcdmajsk@gmail.com'
+EMAIL_HOST_PASSWORD = 'Abcdmajsk#11235813@'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

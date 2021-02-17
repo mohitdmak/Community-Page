@@ -1,18 +1,12 @@
 {% extends 'mainpg/base.html' %}
 {% load static %}
 {% block 2 %}
-<div class="inner">
     {% if pic %}
     <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
     <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
     {% else %}
     <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
     {% endif %}
-	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
-	<h2><br>BITS Community Page <br>
-	<br>By:
-	<i><b>mohitdmak</b></i></h2>
-	</div>
 {% endblock 2 %}
 
 
@@ -49,21 +43,5 @@
 
 </div>
 
-<footer id="footer">
-	<div class="inner">
-		{% if user.is_authenticated %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
-		<a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
 
-		{% else %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
-
-		<a href="{% url "account_login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
-
-		{% endif %}
-			<ul class="copyright">
-			<li>&copy; C S A</li>
-		</ul>
-	</div>
-</footer>
 {% endblock 1 %}

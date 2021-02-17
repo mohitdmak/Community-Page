@@ -1,0 +1,42 @@
+{% extends "mainpg/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+{% block head_title %}{% trans "Sign Out - BITS Community Page" %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block 2 %}
+    {% if pic %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
+    {% else %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    {% endif %}
+{% endblock 2 %}
+
+{% block 1 %}
+<div id = "main">
+<section id="one">
+    <header class="major">
+		<h1><b><u>Sign Out</u></b></h1>
+	</header>
+    {% get_providers as socialaccount_providers %}
+    <hr>
+    <br>
+    <h2 style = "font-family: 'Courier New', Courier, monospace;"><b>
+<p>{% blocktrans with site.name as site_name %}To  sign out of all your third party accounts, click below:{% endblocktrans %}</p></b></h2>
+<hr>
+<br>
+<div class="socialaccount_ballot">
+<h3>
+<form method="post" action="{% url 'account_logout' %}">
+{% csrf_token %}
+{% if redirect_field_value %}
+<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+{% endif %}
+<button type="submit">{% trans 'Sign Out' %}</button>
+</form>
+</h3>
+</div>
+</section>
+</div>
+{% endblock 1 %}

@@ -1,0 +1,43 @@
+{% extends "mainpg/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+{% block head_title %}{% trans "Sign In - BITS Community Page" %}{% endblock %}
+
+{% block 2 %}
+    {% if pic %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
+    {% else %}
+    <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
+    {% endif %}
+{% endblock 2 %}
+
+{% block 1 %}
+<div id = "main">
+<section id="one">
+    <header class="major">
+		<h1><b><u>Sign In</u></b></h1>
+	</header>
+    {% get_providers as socialaccount_providers %}
+    <hr>
+    <br>
+    <h2 style = "font-family: 'Courier New', Courier, monospace;"><b>
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts.
+For a login through your Gmail Account, click below:{% endblocktrans %}</p></b></h2>
+
+<hr>
+<br>
+<div class="socialaccount_ballot">
+    <ul class="icons">
+        <h3>
+        <li><a href="#" class="icon brands fa-google" style="color:blue;"><span class="label"></span></a>
+        :{% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </li>
+        </h3>
+        </ul>
+</div>
+</section>
+</div>
+{% endblock 1 %}

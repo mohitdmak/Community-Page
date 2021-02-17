@@ -25,6 +25,8 @@ urlpatterns = [
     path("profile/<int:pk>/github/", mainpgviews.github, name = "github"),
     path("profile/<int:pk>/linkedin/", mainpgviews.linkedin, name = "linkedin"),
     path("register/User/", mainpgviews.register, name="register"),
+    path("account_login/", mainpgviews.login, name = 'login'),
+    path("account_logout/", mainpgviews.logout,name = 'logout'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

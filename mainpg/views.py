@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import answerForm, UserPicUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialAccount
+from django.core.mail import send_mail
 
 def home(request):
     if request.user.is_authenticated:
@@ -57,11 +58,19 @@ def register(request):
         Profile.objects.create(usr = su, Name = suname, Contact_Email = suemail, Bio = "Hey There! I am using the BITS Community Page!", originaldp = suoriginaldp)
         p = Profile.objects.filter(usr = su)[0]
         p.save()
+        x = request.user.email
+        list = [x]
+        send_mail('Welcome to the BITS Community Page','We are glad that you have joined our community. Try to answer any questions that users may post here, and also clear your doubts. \nThis was just an automated test mail to check if you can recieve announcements via mail in future. You can confirm it by replying to this email. \nLOL.\n\n <author> mohitdmak','settings.EMAIL_HOST_USER',list,fail_silently=False)
         return redirect('create', pk = request.user.id)
     else:
         username = suname
         messages.success(request,f'Welcome Back { username } !')
         return redirect('home')
+
+def login(request):
+    return render(request, 'mainpg/account_login.html')
+def logout(request):
+    return render(request, 'mainpg/account_logout.html')
 
 class ask(LoginRequiredMixin,CreateView):
     model = Question
@@ -156,7 +165,7 @@ def viewans(request, **kwargs):
 
 def edit(request, **kwargs):
     u = User.objects.filter(id = kwargs['pk'])[0]
-    su = SocialAccount.objects.filter(user = u)[0]  
+    su = SocialAccount.objects.filter(user = u)[0]
     if request.method=='POST':
         u_form=UserUpdateForm(request.POST,instance=su.profile)
         if u_form.is_valid():
@@ -171,7 +180,7 @@ def edit(request, **kwargs):
 
 def create(request, **kwargs):
     u = User.objects.filter(id = kwargs['pk'])[0]
-    su = SocialAccount.objects.filter(user = u)[0]  
+    su = SocialAccount.objects.filter(user = u)[0]
     if request.method=='POST':
         u_form=UserUpdateForm(request.POST,instance=su.profile)
         if u_form.is_valid():
@@ -245,36 +254,43 @@ def seeprofile(request, **kwargs):
         else:
             p = Profile.objects.filter(usr = su)[0]
             qset = Question.objects.filter(author = u)
-            us = SocialAccount.objects.filter(user = request.user)[0]
-            if qset:
-                rec = qset[0]
-                recentq = rec.id
-                recent = rec.subject[0:24]
-                for y in us.followings.all():
-                    if su == y.usrtf:
-                        if p.dp == 'default.png':
-                            x = su.extra_data['picture']
-                        else:
-                            x = p.dp.url
-                        return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
-                if p.dp == 'default.png':
-                    x = su.extra_data['picture']
+            if request.user.is_authenticated:
+                us = SocialAccount.objects.filter(user = request.user)[0]
+                if qset:
+                    rec = qset[0]
+                    recentq = rec.id
+                    recent = rec.subject[0:24]
+                    for y in us.followings.all():
+                        if su == y.usrtf:
+                            if p.dp == 'default.png':
+                                x = su.extra_data['picture']
+                            else:
+                                x = p.dp.url
+                            return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
+                    if p.dp == 'default.png':
+                        x = su.extra_data['picture']
+                    else:
+                        x = p.dp.url
+                    return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
                 else:
-                    x = p.dp.url
-                return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x,'recent': recent, 'recentq':recentq })
-            else:
-                for y in us.followings.all():
-                    if su == y.usrtf:
-                        if p.dp == 'default.png':
-                            x = su.extra_data['picture']
-                        else:
-                            x = p.dp.url
+                    for y in us.followings.all():
+                        if su == y.usrtf:
+                            if p.dp == 'default.png':
+                                x = su.extra_data['picture']
+                            else:
+                                x = p.dp.url
                         return render(request, 'mainpg/seeprofile2.html', {'profile': p, 'picc': x })
+                    if p.dp == 'default.png':
+                        x = su.extra_data['picture']
+                    else:
+                        x = p.dp.url
+                    return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x})
+            else:
                 if p.dp == 'default.png':
                     x = su.extra_data['picture']
                 else:
                     x = p.dp.url
-                return render(request, 'mainpg/seeprofile.html', {'profile': p, 'picc': x})
+                return render(request, 'mainpg/seeprofile3.html', {'profile': p, 'picc': x })
 
 def follow(request,**kwargs):
     u = User.objects.filter(id = kwargs['pk'])[0]
@@ -324,7 +340,7 @@ def insta(request, **kwargs):
     if p.Instagram_Handle == "":
         messages.success(request,f'The User { username } has not provided an Instagram Handle :(')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        
+
     else:
         link = "https://www.instagram.com/" + str(p.Instagram_Handle)
         return redirect(link)

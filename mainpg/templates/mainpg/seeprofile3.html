@@ -1,18 +1,12 @@
 {% extends 'mainpg/base.html' %}
 {% load static %}
 {% block 2 %}
-<div class="inner">
     {% if pic %}
     <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
     <a href="#" class="image avatar"><img src={{ pic }} alt="No student logged in" /></a>
     {% else %}
     <a href="https://www.bits-pilani.ac.in/" class="image avatar"><img src="{% static 'mainpg/images/bit.png' %}" alt="No student logged in" /></a>
     {% endif %}
-	<h1><strong>Birla Institute Of Technology And Science</strong><br /></h1>
-	<h2><br>BITS Community Page <br>
-	<br>By:
-	<i><b>mohitdmak</b></i></h2>
-	</div>
 {% endblock 2 %}
 
 {% block 1 %}
@@ -25,16 +19,16 @@
             <a href= {{ picc }} class="image fit thumb"><img src={{ picc }} alt="" /></a>
         </article>
         <article>
-            <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i>Let Us Connect !</i></h3>
+            <h3 style = "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><i><u>Let Us Connect !</u></i></h3>
             <br>
             <ul class="icons">
-                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-                <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-                <li><a href="#" class="icon solid fa-instagram"><span class="label">Instagram</span></a></li>
+                <h3><li><a href="{% url 'twitter' profile.usr.user.id %}" class="icon brands fa-twitter" style="color:blue;"><span class="label">Twitter</span></a></li>
+                <li><a href="{% url 'insta' profile.usr.user.id %}" class="icon brands fa-instagram" style="color:blue;"><span class="label">Insta</span></a></li>
+                <li><a href="{% url 'github' profile.usr.user.id %}" class="icon brands fa-github" style="color:blue;"><span class="label">Github</span></a></li>
+                <li><a href="{% url 'linkedin' profile.usr.user.id %}" class="icon brands fa-linkedin-in" style="color:blue;"><span class="label">Linkedin</span></a></li></h3>
             </ul>
 
-            <h3><a class = "btn btn-outline-info" href = "#">login to F O L L O W</a></h3>
+            <h3><a class = "btn btn-outline-info" href = "{% url 'account_login' %}">login to F O L L O W</a></h3>
             <br>
 
 
@@ -58,21 +52,5 @@
     </blockquote>
     </section>
 </div>
-<footer id="footer">
-	<div class="inner">
-		{% if user.is_authenticated %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;"><b>L O G O U T :</b>
-		<a href="{% url 'account_logout' %}" class="icon solid fa-envelope"><span class="label">Email</span></a></h1>
 
-		{% else %}
-		<h1 style="font-family: 'Courier New', Courier, monospace;font-weight: 100;"><b>L O G I N :</b>
-
-		<a href="{% url "account_login" %}" class="icon solid fa-envelope icons"><span class="label">Email</span></a></h1>
-
-		{% endif %}
-			<ul class="copyright">
-			<li>&copy; C S A</li>
-		</ul>
-	</div>
-</footer>
 {% endblock 1 %}

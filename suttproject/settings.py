@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from .secret import djangosecretkey, googleoauth2clientid, googleoauth2secret, hostemailpassword, hostemailusername
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "2p*7x_b@@#7_rsj4gfqn04+$7ak*hy8y+cx=kg$lz3t04m@u6l"
+SECRET_KEY = djangosecretkey
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -152,8 +154,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '691613199043-nq7r07hc2k2kr53d7ggum5gn2udbaied.apps.googleusercontent.com',
-            'secret': 'Y4tNp6m0E6FrTgfApx3wr-t_',
+            'client_id': googleoauth2clientid,
+            'secret': googleoauth2secret,
             'key': ''
         }
     }
@@ -163,7 +165,7 @@ LOGIN_REDIRECT_URL = 'register'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'abcdmajsk@gmail.com'
-EMAIL_HOST_PASSWORD = 'Abcdmajsk#11235813@'
+EMAIL_HOST_USER = hostemailusername
+EMAIL_HOST_PASSWORD = hostemailpassword
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

@@ -2,6 +2,8 @@
 A community page for bits, made to learn and implement the oauth2 api, \
 along with sqllite3 db and deploying via wsgi.
 
+Note: App messes badly unless viewed from desktop as the media queries are not set. Open below link from laptop/pc only
+
 ## Head here [link](https://mohitdmak.pythonanywhere.com/).
 
 Login through your google acount, and complete your profile upon registration. \

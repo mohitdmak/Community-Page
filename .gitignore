@@ -1,1 +1,5 @@
-secret.py
+suttproject/secret.py
+db.sqlite3
+mainpg/migrations
+mainpg/__pycache__
+suttproject/__pycache__
